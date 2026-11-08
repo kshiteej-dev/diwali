@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>जगमग दिवाली | A Gift from Kshiteej</title>
+  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="strip l"></div>
+<div class="strip r"></div>
+
+<!-- STAGE 1: Curtains & Welcome -->
+<section class="stage on" id="s1">
+  <div class="curt" id="curtain"><div class="cur l"></div><div class="cur r"></div></div>
+  <h2 class="shubh">शुभ<br>दीपावली</h2>
+  <div class="sign"><h1>जगमग<br>दिवाली</h1></div>
+
+  <!-- Shown if NO recipient name is in URL -->
+  <div class="name-box" id="nameBox">
+    <p class="name-prompt">A Diwali surprise from <strong>Kshiteej</strong> awaits you!</p>
+    <div class="name-field">
+      <input type="text" id="guestName" placeholder="Enter your name..." maxlength="26" autocomplete="off">
+      <button class="btn" id="btnEnter">Open My Greeting 🪔</button>
+    </div>
+  </div>
+
+  <!-- Shown if recipient name IS in URL -->
+  <div class="welcome-direct" id="welcomeDirect">
+    <p class="sub" id="directGreeting"></p>
+    <p class="from-tag">A special Diwali surprise handcrafted by <strong>Kshiteej</strong></p>
+    <button class="btn" id="btnDirectStart">Tap to celebrate ✨</button>
+  </div>
+</section>
+
+<!-- STAGE 2: Diya Lighting -->
+<section class="stage" id="s2">
+  <div class="dark"></div>
+  <div class="glow"></div>
+  <div class="niche">
+    <span class="rose" style="left:14px">🌹</span>
+    <span class="rose" style="right:14px">🌹</span>
+    <div class="diya" id="diya" title="Tap to light">
+      <div class="flame"></div>
+    </div>
+  </div>
+  <p class="hint" id="h2">Tap the diya to light your auspicious flame ✨</p>
+</section>
+
+<!-- STAGE 3: Rocket & Secret Letter Card -->
+<section class="stage" id="s3">
+  <div class="hint2" id="h3">Double tap anywhere to ignite your rocket!</div>
+  <div id="rocket">
+    <i class="cone"></i>
+    <i class="tube"></i>
+    <i class="stick"></i>
+    <i class="fuse"></i>
+    <span class="spark"></span>
+  </div>
+
+  <div class="card" id="c2">
+    <svg class="rg" viewBox="-50 -50 100 100">
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(45)"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(90)"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(135)"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(180)"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(225)"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(270)"/>
+      <path pathLength="1" d="M0 0C-12-18-8-36 0-46C8-36 12-18 0 0" transform="rotate(315)"/>
+      <circle pathLength="1" r="11"/>
+      <circle pathLength="1" r="48" style="stroke-dasharray:.01 .012"/>
+    </svg>
+
+    <h2 id="to">शुभ दीपावली</h2>
+    <p class="card-sub">A special festive letter for you from Kshiteej</p>
+
+    <!-- Wax-sealed Envelope -->
+    <div class="env" id="env">
+      <i class="flap"></i>
+      <div class="seal">🪔</div>
+      <span>Tap to open your secret letter</span>
+    </div>
+
+    <!-- Secret Letter Scroll -->
+    <div class="scr" id="scr">
+      <p class="letter-salutation" id="letterSalutation">Dear Friend,</p>
+      <p id="msg"></p>
+      <p class="letter-bless">May this holy festival fill your home with laughter, sound health, and boundless prosperity.</p>
+      <p id="by">— With warm wishes &amp; love,<br><strong>Kshiteej</strong></p>
+    </div>
+
+    <!-- Sky Wish & Floating Lantern -->
+    <input id="wish" maxlength="40" placeholder="Whisper a wish for the sky...">
+
+    <div class="row">
+      <button class="btn" id="lan">Release lantern 🏮</button>
+      <button class="btn" id="boom">More fireworks 🎆</button>
+      <button class="btn btn-wa" id="shr">Share on WhatsApp 📲</button>
+    </div>
+
+    <!-- Custom Direct Link Creator for Kshiteej or Friends -->
+    <span class="creator-toggle" id="toggleCreator">✨ Want to send a direct link to someone special?</span>
+    <div class="creator-box" id="creatorBox">
+      <p>Enter their name to generate a personalized direct link:</p>
+      <input type="text" id="customName" placeholder="e.g. Mom, Rahul, Priya" maxlength="24">
+      <div class="row">
+        <button class="btn" id="btnCopyLink">Copy Personal Link 🔗</button>
+        <button class="btn btn-wa" id="btnSendWA">Send on WhatsApp 💬</button>
+      </div>
+      <p id="linkCopiedMsg" style="color:#075e54;font-weight:600;display:none;margin-top:6px;">Link copied to clipboard!</p>
+    </div>
+
+    <p class="cr">Handcrafted with ❤️ &amp; festive warmth by Kshiteej</p>
+  </div>
+</section>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="mute" id="mt" title="Toggle Music and Sound">🔊 Music: ON</button>
+
+<script>
+const $ = id => document.getElementById(id);
+const cv = $('c'), x = cv.getContext('2d');
+let W, H, P = [], snd = true, AC;
+
+function rs() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+rs();
+addEventListener('resize', rs);
+
+const COL = ['#ff3d6e', '#ffc83d', '#3dd6ff', '#7dff6b', '#ff7a1f', '#c77dff', '#ffffff', '#ffd23f'];
+
+function boom(px, py, big) {
+  const c = COL[Math.random() * COL.length | 0];
+  const c2 = COL[Math.random() * COL.length | 0];
+  const n = big ? 130 : 75;
+  const ring = Math.random() < 0.35;
+  const heart = Math.random() < 0.22;
+  for (let i = 0; i < n; i++) {
+    let a = i / n * 6.283;
+    let s = (big ? 6.2 : 4) * (ring || heart ? 1 : 0.4 + Math.random());
+    let vx = Math.cos(a) * s, vy = Math.sin(a) * s;
+    if (heart) {
+      const t = a;
+      vx = 16 * Math.pow(Math.sin(t), 3) * (big ? 0.45 : 0.3);
+      vy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * (big ? 0.45 : 0.3);
+    }
+    P.push({ x: px, y: py, vx, vy, l: 1, d: 0.011 + Math.random() * 0.01, c: i % 3 ? c : c2, g: 0.045, r: 2.3 });
+  }
+  pop2(big);
+}
+
+function trail(px, py) {
+  P.push({ x: px, y: py, vx: (Math.random() - 0.5) * 1.2, vy: 2 + Math.random() * 2, l: 1, d: 0.04, c: '#ffb300', g: 0, r: 2.5 });
+}
+
+function loop() {
+  x.globalCompositeOperation = 'source-over';
+  x.fillStyle = 'rgba(18, 6, 32, 0.22)';
+  x.fillRect(0, 0, W, H);
+  x.globalCompositeOperation = 'lighter';
+  for (let i = P.length - 1; i >= 0; i--) {
+    const p = P[i];
+    p.x += p.vx; p.y += p.vy; p.vy += p.g; p.vx *= 0.985; p.l -= p.d;
+    if (p.l <= 0) { P.splice(i, 1); continue; }
+    x.globalAlpha = p.l;
+    x.fillStyle = p.c;
+    x.beginPath();
+    x.arc(p.x, p.y, p.r * p.l + 0.4, 0, 6.3);
+    x.fill();
+  }
+  x.globalAlpha = 1;
+  requestAnimationFrame(loop);
+}
+loop();
+
+function shot() {
+  boom(W * (0.12 + Math.random() * 0.76), H * (0.1 + Math.random() * 0.4), Math.random() < 0.45);
+}
+
+/* Sound synthesis via Web Audio API */
+function initAudio() {
+  if (!AC) {
+    try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+  }
+  if (AC && AC.state === 'suspended') {
+    AC.resume();
+  }
+}
+
+function pop2(big) {
+  if (!snd) return;
+  initAudio();
+  if (!AC) return;
+  try {
+    const n = AC.sampleRate * 0.35 | 0;
+    const b = AC.createBuffer(1, n, AC.sampleRate);
+    const d = b.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);
+    const s = AC.createBufferSource();
+    const g = AC.createGain();
+    g.gain.value = big ? 0.5 : 0.28;
+    s.buffer = b;
+    s.connect(g).connect(AC.destination);
+    s.start();
+  } catch (e) {}
+}
+
+function playChime() {
+  if (!snd) return;
+  initAudio();
+  if (!AC) return;
+  try {
+    const freqs = [528, 660, 792, 1056];
+    freqs.forEach((f, idx) => {
+      const osc = AC.createOscillator();
+      const gain = AC.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, AC.currentTime + idx * 0.08);
+      gain.gain.setValueAtTime(0.001, AC.currentTime + idx * 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.18, AC.currentTime + idx * 0.08 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime + idx * 0.08 + 1.2);
+      osc.connect(gain).connect(AC.destination);
+      osc.start(AC.currentTime + idx * 0.08);
+      osc.stop(AC.currentTime + idx * 0.08 + 1.3);
+    });
+  } catch (e) {}
+}
+
+const bgMusic = $('bgMusic');
+bgMusic.volume = 0.55;
+let musicStarted = false;
+
+function startBgMusic() {
+  if (snd && !musicStarted) {
+    bgMusic.play().then(() => {
+      musicStarted = true;
+    }).catch(() => {});
+  }
+}
+
+function enableAudioOnFirstTap() {
+  initAudio();
+  startBgMusic();
+}
+document.addEventListener('pointerdown', enableAudioOnFirstTap, { once: true });
+document.addEventListener('touchstart', enableAudioOnFirstTap, { once: true });
+
+$('mt').onclick = () => {
+  snd = !snd;
+  if (snd) {
+    $('mt').textContent = '🔊 Music: ON';
+    initAudio();
+    bgMusic.play().catch(() => {});
+    musicStarted = true;
+  } else {
+    $('mt').textContent = '🔇 Music: OFF';
+    bgMusic.pause();
+  }
+};
+
+/* Stages management */
+function show(id) {
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('on'));
+  $(id).classList.add('on');
+}
+
+/* User & Recipient data */
+let recipient = '';
+const SENDER = 'Kshiteej';
+
+const WISHES = [
+  "May your home glow brighter than a thousand diyas, your sky fill with vibrant colours, and every wish of yours take flight like rockets. Happy Diwali!",
+  "Ghar mein roshni, dil mein khushi, aur zindagi mein meethe meethe pal. May this sacred festival of lights illuminate every corner of your life with laughter, good health, and boundless success!",
+  "Let every diya you light chase away a worry, and every sparkler bring a new reason to smile. May Goddess Lakshmi and Lord Ganesha bless you with prosperity, peace, and eternal love!",
+  "Laddoo meethe, patakhe zordaar, aur saal bhar ka dher saara pyaar. Wishing you and your lovely family a sparkling, joyful, and safe Diwali!",
+  "May the divine lights of Deepavali guide you on the path of happiness, good health, and endless blessings. You bring so much light and joy into our lives!"
+];
+
+function setRecipientName(name) {
+  recipient = name.trim();
+  if (!recipient) recipient = 'Friend';
+
+  // Update elements across all stages
+  $('h2').innerHTML = `Dear <span class="hn">${recipient}</span>, tap the diya to light your auspicious flame ✨`;
+  $('h3').innerHTML = `<span class="hn">${recipient}</span>, double tap anywhere to ignite your rocket!`;
+  $('to').innerHTML = `${recipient}, शुभ दीपावली!`;
+  $('letterSalutation').innerHTML = `Dear <span class="hn">${recipient}</span>,`;
+  $('msg').textContent = WISHES[Math.random() * WISHES.length | 0];
+}
+
+function startCelebration() {
+  initAudio();
+  startBgMusic();
+  show('s2');
+  playChime();
+  boom(W / 2, H * 0.35, 1);
+}
+
+// Check URL for pre-filled recipient name (#Name or ?name=Name)
+function checkUrlName() {
+  let raw = '';
+  if (location.hash && location.hash.length > 1) {
+    raw = decodeURIComponent(location.hash.slice(1)).replace(/[-_]+/g, ' ').trim();
+  } else {
+    const params = new URLSearchParams(location.search);
+    raw = params.get('to') || params.get('name') || '';
+  }
+
+  if (raw) {
+    setRecipientName(raw);
+    $('nameBox').style.display = 'none';
+    $('welcomeDirect').classList.add('on');
+    $('directGreeting').innerHTML = `Dear <span class="hn">${recipient}</span>, रोशनी का त्योहार आपके लिए लेकर आए ढेर सारी खुशियाँ!`;
+  } else {
+    $('nameBox').style.display = 'block';
+    $('welcomeDirect').classList.remove('on');
+  }
+}
+checkUrlName();
+
+// Submit guest name
+function submitGuestName() {
+  const entered = $('guestName').value.trim();
+  setRecipientName(entered || 'Friend');
+  if (entered) {
+    history.replaceState(null, '', '#' + encodeURIComponent(entered.replace(/\s+/g, '-')));
+  }
+  startCelebration();
+}
+
+$('btnEnter').onclick = submitGuestName;
+$('guestName').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitGuestName();
+});
+
+$('btnDirectStart').onclick = startCelebration;
+
+// Stage 2: Diya
+let lit = false;
+$('diya').onclick = () => {
+  if (lit) return;
+  lit = true;
+  $('s2').classList.add('lit');
+  playChime();
+  $('h2').innerHTML = `दीया जल उठा ✨ May your life always be illuminated with joy!`;
+  setTimeout(() => {
+    $('h2').innerHTML = `<button class="btn" id="nx">Now, launch your rocket 🚀</button>`;
+    $('nx').onclick = () => {
+      show('s3');
+      $('s3').style.background = 'transparent';
+    };
+  }, 1800);
+};
+
+// Stage 3: Rocket launch
+let last = 0, fired = false;
+$('s3').addEventListener('pointerdown', e => {
+  if (fired) {
+    if (!e.target.closest('.card, .btn, input, .creator-toggle')) {
+      boom(e.clientX, e.clientY, Math.random() < 0.5);
+    }
+    return;
+  }
+  const t = Date.now();
+  if (t - last < 400 || /Android|iPhone/i.test(navigator.userAgent)) {
+    fire();
+  }
+  last = t;
+});
+
+function fire() {
+  if (fired) return;
+  fired = true;
+  $('h3').remove();
+  const r = $('rocket');
+  r.classList.add('go');
+  playChime();
+
+  const f = setInterval(() => {
+    const b = r.getBoundingClientRect();
+    trail(b.left + 30, b.bottom);
+  }, 16);
+
+  setTimeout(() => {
+    r.style.transform = `translateY(-${H * 0.65}px)`;
+  }, 600);
+
+  setTimeout(() => {
+    clearInterval(f);
+    const b = r.getBoundingClientRect();
+    r.style.display = 'none';
+    boom(b.left + 30, b.top, 1);
+    setTimeout(() => boom(W * 0.25, H * 0.22, 1), 220);
+    setTimeout(() => boom(W * 0.75, H * 0.28, 1), 440);
+    setTimeout(() => boom(W * 0.5, H * 0.35, 1), 700);
+
+    // Show Secret Letter Card
+    setTimeout(() => {
+      $('c2').classList.add('on');
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => boom(W * Math.random(), H * 0.3 * Math.random() + 40, 1), i * 220);
+      }
+    }, 1200);
+  }, 2200);
+}
+
+// Envelope open
+$('env').onclick = () => {
+  $('env').classList.add('open');
+  playChime();
+  setTimeout(() => {
+    $('env').style.display = 'none';
+    $('scr').classList.add('on');
+    boom(W / 2, H * 0.2, 1);
+  }, 750);
+};
+
+// Floating Lanterns
+$('lan').onclick = () => {
+  playChime();
+  const t = $('wish').value.trim() || 'Happy Diwali ✨';
+  const l = document.createElement('div');
+  l.className = 'lantern';
+  l.textContent = t;
+  l.style.left = (8 + Math.random() * 70) + 'vw';
+  l.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
+  document.body.appendChild(l);
+  $('wish').value = '';
+  setTimeout(() => l.remove(), 11000);
+};
+
+// More Fireworks
+$('boom').onclick = () => {
+  for (let i = 0; i < 6; i++) {
+    setTimeout(shot, i * 160);
+  }
+};
+
+// Share on WhatsApp
+$('shr').onclick = () => {
+  const currentUrl = location.href.split('#')[0];
+  const shareText = `🪔 *Happy Diwali!* \nKshiteej has created a special festive Diwali surprise for you.\n\nTap here to light your diya and open your secret letter:\n${currentUrl}`;
+  const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+  window.open(waUrl, '_blank');
+};
+
+// Toggle Custom Direct Link Creator
+$('toggleCreator').onclick = () => {
+  $('creatorBox').classList.toggle('on');
+};
+
+$('btnCopyLink').onclick = async () => {
+  const name = $('customName').value.trim();
+  const baseUrl = location.href.split('#')[0].split('?')[0];
+  const targetUrl = name ? `${baseUrl}#${encodeURIComponent(name.replace(/\s+/g, '-'))}` : baseUrl;
+  try {
+    await navigator.clipboard.writeText(targetUrl);
+    $('linkCopiedMsg').style.display = 'block';
+    setTimeout(() => { $('linkCopiedMsg').style.display = 'none'; }, 3000);
+  } catch (e) {
+    prompt("Copy this link:", targetUrl);
+  }
+};
+
+$('btnSendWA').onclick = () => {
+  const name = $('customName').value.trim();
+  const baseUrl = location.href.split('#')[0].split('?')[0];
+  const targetUrl = name ? `${baseUrl}#${encodeURIComponent(name.replace(/\s+/g, '-'))}` : baseUrl;
+  const greetingName = name ? `Hey ${name}! ` : 'Hey! ';
+  const shareText = `🪔 *Happy Diwali!* \n${greetingName}Kshiteej made a special Diwali greeting just for you!\n\nTap here to light your diya and open your letter:\n${targetUrl}`;
+  const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+  window.open(waUrl, '_blank');
+};
+
+// Fast-forward curtain if user taps
+$('curtain').onclick = () => {
+  $('s1').classList.add('open');
+};
+setTimeout(() => $('s1').classList.add('open'), 500);
+</script>
+</body>
+</html>
